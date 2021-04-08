@@ -1,27 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A29714F8-CF39-4A9D-A0A2-188249010260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller", "src\SqsPoller\SqsPoller.csproj", "{28A53530-EDA7-41AC-9C64-F8BA11C755EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqsPoller", "src\SqsPoller\SqsPoller.csproj", "{28A53530-EDA7-41AC-9C64-F8BA11C755EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{805825C5-05D7-46BA-829A-3B565DD8D923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller.Sample.Publisher", "sample\SqsPoller.Sample.Publisher\SqsPoller.Sample.Publisher.csproj", "{DCD48435-D462-4122-AF52-233FCBAAFF1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqsPoller.Sample.Publisher", "sample\SqsPoller.Sample.Publisher\SqsPoller.Sample.Publisher.csproj", "{DCD48435-D462-4122-AF52-233FCBAAFF1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller.Sample.Subscriber", "sample\SqsPoller.Sample.Subscriber\SqsPoller.Sample.Subscriber.csproj", "{005E71E3-AF7C-443B-A576-E422F637D17C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqsPoller.Sample.Subscriber", "sample\SqsPoller.Sample.Subscriber\SqsPoller.Sample.Subscriber.csproj", "{005E71E3-AF7C-443B-A576-E422F637D17C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller.Extensions.Publisher", "src\SqsPoller.Extensions.Publisher\SqsPoller.Extensions.Publisher.csproj", "{678BCD73-E26A-445E-BDD2-95301BC18AC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqsPoller.Extensions.Publisher", "src\SqsPoller.Extensions.Publisher\SqsPoller.Extensions.Publisher.csproj", "{678BCD73-E26A-445E-BDD2-95301BC18AC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{082D2643-6761-496F-BAED-BA0073C64FCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller.Extensions.Publisher.Tests.Integration", "test\SqsPoller.Extensions.Publisher.Tests.Integration\SqsPoller.Extensions.Publisher.Tests.Integration.csproj", "{7E030327-77F3-4301-AF26-A79A309E1BB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqsPoller.Extensions.Publisher.Tests.Integration", "test\SqsPoller.Extensions.Publisher.Tests.Integration\SqsPoller.Extensions.Publisher.Tests.Integration.csproj", "{7E030327-77F3-4301-AF26-A79A309E1BB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller.Tests.Unit", "test\SqsPoller.Tests.Unit\SqsPoller.Tests.Unit.csproj", "{30FC0190-4E1C-495B-BF00-7D3322594B33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqsPoller.Tests.Unit", "test\SqsPoller.Tests.Unit\SqsPoller.Tests.Unit.csproj", "{30FC0190-4E1C-495B-BF00-7D3322594B33}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{E2A4C7CB-756F-496D-85C1-292A3D885F90}"
-ProjectSection(SolutionItems) = preProject
-	docker-compose.yml = docker-compose.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqsPoller.LoadTest", "SqsPoller.LoadTest\SqsPoller.LoadTest.csproj", "{6FEDA1A7-3E9A-49B1-8870-86DD6DA9EBBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +58,13 @@ Global
 		{30FC0190-4E1C-495B-BF00-7D3322594B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30FC0190-4E1C-495B-BF00-7D3322594B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30FC0190-4E1C-495B-BF00-7D3322594B33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FEDA1A7-3E9A-49B1-8870-86DD6DA9EBBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FEDA1A7-3E9A-49B1-8870-86DD6DA9EBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FEDA1A7-3E9A-49B1-8870-86DD6DA9EBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FEDA1A7-3E9A-49B1-8870-86DD6DA9EBBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{28A53530-EDA7-41AC-9C64-F8BA11C755EA} = {A29714F8-CF39-4A9D-A0A2-188249010260}
@@ -61,5 +73,9 @@ Global
 		{678BCD73-E26A-445E-BDD2-95301BC18AC1} = {A29714F8-CF39-4A9D-A0A2-188249010260}
 		{7E030327-77F3-4301-AF26-A79A309E1BB1} = {082D2643-6761-496F-BAED-BA0073C64FCB}
 		{30FC0190-4E1C-495B-BF00-7D3322594B33} = {082D2643-6761-496F-BAED-BA0073C64FCB}
+		{6FEDA1A7-3E9A-49B1-8870-86DD6DA9EBBA} = {082D2643-6761-496F-BAED-BA0073C64FCB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53545ABC-E78D-464F-8800-E4B2BF4065A0}
 	EndGlobalSection
 EndGlobal

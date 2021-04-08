@@ -1,25 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SqsPoller
 {
-    internal class SqsPollerHostedService: BackgroundService
+    public class SqsPollerHostedService: BackgroundService
     {
-        private readonly AmazonSQSClient _amazonSqsClient;
+        private readonly IAmazonSQS _amazonSqsClient;
         private readonly SqsPollerConfig _config;
         private readonly IConsumerResolver _consumerResolver;
         private readonly ILogger<SqsPollerHostedService> _logger;
 
         public SqsPollerHostedService(
-            AmazonSQSClient amazonSqsClient,
+            IAmazonSQS amazonSqsClient,
             SqsPollerConfig config,
             IConsumerResolver consumerResolver,
             ILogger<SqsPollerHostedService> logger)
@@ -41,7 +39,7 @@ namespace SqsPoller
             }
         }
 
-        private async Task Handle(string queueUrl, CancellationToken cancellationToken)
+        public async Task Handle(string queueUrl, CancellationToken cancellationToken)
         {
             using var correlationIdScope = _logger.BeginScope(
                 new Dictionary<string, object>
@@ -88,6 +86,14 @@ namespace SqsPoller
                                     "Failed to handle message with id {message_id} and ReceiptHandle {receipt_handle}");
                                 return;
                             }
+
+                            if (task.IsCanceled)
+                            {
+                                _logger.LogWarning(
+                                    "Failed to handle message with id {message_id} and ReceiptHandle {receipt_handle}.");
+                                return;
+                            }
+                            
 
                             _logger.LogTrace(
                                 "Deleting the message with id {message_id} and ReceiptHandle {receipt_handle}");

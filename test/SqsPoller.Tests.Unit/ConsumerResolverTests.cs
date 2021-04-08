@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -177,6 +178,40 @@ namespace SqsPoller.Tests.Unit
             //Assert
             fakeService.Received(2).FirstMethod();
             fakeService.Received(2).SecondMethod();
+        }
+
+        [Fact]
+        public async Task Test()
+        {
+            //Arrange
+            var fakeLogger = Substitute.For<ILogger<ConsumerResolver>>();
+            var throwingMessageConsumer = new ThrowingMessageConsumer();
+            var consumers = new IConsumer[] { throwingMessageConsumer };
+            var consumerResolver = new ConsumerResolver(consumers, fakeLogger);
+            var firstMessage = new ThrowingMessage { Value = "First Message" };
+            var firstSqsMessage = new Message
+            {
+                MessageAttributes = new Dictionary<string, MessageAttributeValue>
+                {
+                    {"MessageType", new MessageAttributeValue {StringValue = nameof(ThrowingMessage)}}
+                },
+                Body = JsonConvert.SerializeObject(firstMessage)
+            };
+
+            var sqs = Substitute.For<IAmazonSQS>();
+            sqs.ReceiveMessageAsync(Arg.Any<ReceiveMessageRequest>(), Arg.Any<CancellationToken>())
+                .Returns(new ReceiveMessageResponse { Messages = new List<Message> { firstSqsMessage } });
+
+            SqsPollerHostedService sqsPollerHostedService = new SqsPollerHostedService(
+                sqs,
+                new SqsPollerConfig { QueueUrl = "blah" },
+                consumerResolver,
+                Substitute.For<ILogger<SqsPollerHostedService>>());
+
+            await sqsPollerHostedService.Handle("blah", CancellationToken.None);
+
+
+            await sqs.DidNotReceive().DeleteMessageAsync(Arg.Any<DeleteMessageRequest>(), Arg.Any<CancellationToken>());
         }
     }
 }

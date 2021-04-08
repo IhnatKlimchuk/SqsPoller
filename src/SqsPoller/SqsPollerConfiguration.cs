@@ -56,6 +56,28 @@ namespace SqsPoller
             return services;
         }
 
+        public static IServiceCollection AddSqsPoller(
+            this IServiceCollection services, IAmazonSQS amazonSQS, SqsPollerConfig config, Type[] types)
+        {
+            services.AddSingleton<IConsumerResolver, ConsumerResolver>();
+
+            foreach (var type in types)
+            {
+                services.AddSingleton(typeof(IConsumer), type);
+            }
+
+            services.AddTransient<IHostedService>(provider =>
+            {
+                return new SqsPollerHostedService(
+                    amazonSQS,
+                    config,
+                    provider.GetRequiredService<IConsumerResolver>(),
+                    provider.GetRequiredService<ILogger<SqsPollerHostedService>>());
+            });
+
+            return services;
+        }
+
         private static AmazonSQSConfig CreateSqsConfig(SqsPollerConfig config)
         {
             var amazonSqsConfig = new AmazonSQSConfig
